@@ -10,6 +10,7 @@ base.describe()
 base.loc[base['age'] < 0]
 
 '''
+TRATAMENTO DE VALORES INCONSISTENTES
 Preencher os valores de Age manualmente, será preenchido os valores com a média
 das idades positivas
 '''
@@ -21,6 +22,7 @@ pd.isnull(base['age'])
 base.loc[pd.isnull(base['age'])]
 
 '''
+TRATAMENTO DE VALORES FALTANTES
 Divivir a base de dados sendo Previsores e Classe:
 
 Previsores: Às colunas Income, Age e Loan (a coluna clientId não é necessária,
@@ -36,3 +38,13 @@ imputer = Imputer(missing_values='NaN', strategy='mean', axis=0)
 imputer = imputer.fit(previsores[:,0:3])
 previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
 
+'''
+ESCALONAMENTO DE ATRIBUTOS
+No caso abaixo o escalonamento deve ser feito para Income e Age, para que o
+algoritmo trate os dois com a mesma importância
+'''
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+# Padronização por escala
+previsores = scaler.fit_transform(previsores)
